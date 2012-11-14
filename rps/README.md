@@ -43,3 +43,9 @@ Todo
 <li> creating play game Page </li>
 <li> more to be written </li>
 </ol>
+
+Note
+----
+<ol>
+<li> now i'm use php for testing of design, next will be change to javascript server.</li>
+</ol>
