@@ -12,9 +12,13 @@
           }
           
           .tr-active {
-              background-color: #f5f5f5;
+              background-color: #EEE;
               border-color: #f5f5f5;
           }
+		  
+		  .tr-play {
+			  background-color: #EEE;
+		  }
           
           .tr-head {
               background-color: #FAFAFA;
@@ -27,7 +31,22 @@
               padding-left: 20px;
               padding-right: 20px;
           }
-
+		  .right-box {
+			padding: 20px;
+			margin-bottom: 30px;
+			font-size: 18px;
+			font-weight: 200;
+			line-height: 30px;
+			color: inherit;
+			background-color: #EEE;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			border-radius: 6px;
+	     }
+		 .profile {
+			padding:10px;
+			overflow:hidden;	 
+	     }
 
         </style>
         <link href="../css/bootstrap-responsive.css" rel="stylesheet">
@@ -73,12 +92,12 @@
                                     <td>Sene Loe</td>
                                     <td>Wait</td>
                                 </tr>
-                                <tr>
+                                <tr class="success">
                                     <td>2</td>
                                     <td>Siapa yang mau coba</td>
                                     <td>Play</td>
                                 </tr>
-                                <tr>
+                                <tr class="success">
                                     <td>3</td>
                                     <td>Singgle Yuk</td>
                                     <td>Play</td>
@@ -88,7 +107,17 @@
                                     <td>Kau Pasti Kalah</td>
                                     <td>wait</td>
                                 </tr>
+                                <tr class="success">
+                                    <td>5</td>
+                                    <td>Show me your skill</td>
+                                    <td>Play</td>
+                                </tr>
                                 <tr>
+                                    <td>4</td>
+                                    <td>Kau Pasti Kalah</td>
+                                    <td>wait</td>
+                                </tr>
+                                <tr class="success">
                                     <td>5</td>
                                     <td>Show me your skill</td>
                                     <td>Play</td>
@@ -98,15 +127,55 @@
                                     <td>You lose</td>
                                     <td>wait</td>
                                 </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>You lose</td>
+                                    <td>wait</td>
+                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
-                    <div class="span6">
-                        <p>content right</p>
+                    <div class="span6 right-box">
+                      <h3>Welcome, Rakhacs</h3>
+                      <div class="row-fluid">
+                        <ul class="thumbnails">
+                          <li class="span6">
+                            <div class="thumbnail">
+                              <img src="http://placehold.it/300x200" alt="">
+                              
+                            </div>
+                          </li>
+                          <li class="span6">
+                            <div class="thumbnail profile">
+                                <p><span class="label">Your Profile</span></p>
+                                <p><small><strong>Match : </strong></small><small>180</small></p>
+                                <p><small><strong>win : </strong></small><small>100</small></p>
+                                <p><small><strong>lose : </strong></small><small>80</small></p>
+                                <p><small><strong>percent : </strong></small><small>55 %</small></p>
+                            </div>
+                          </li>
+                        </ul>
+          				</div>
                     </div>
                 </div>
             </div>
                 
+                
+                <div class="modal hide fade" id="move-arena">
+                  <div class="modal-header">
+                    
+                    <h3>Loading Page...</h3>
+                  </div>
+                  <div class="modal-body">
+                    <div class="progress">
+                      <div id="loading-bar" class="bar" style="width: 0%;"></div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <span>Loading....</span><span id="num-loading">0</span>%
+                  </div>
+                </div>
             <hr>
                 
             <footer>
@@ -120,17 +189,50 @@
         <script src="../js/bootstrap.min.js"></script>
         <script>
             $(function(){
-                
+                var COUNTER = 0;
+				var TM = null;
                 function rmAct(){
                     $("#rooms").find('tbody').find('tr').each(function(){
                         $(this).removeClass('tr-active')
                     });
                 }
                 
-                $('#rooms > tbody').delegate('tr','click',function(){
+                $('#rooms > tbody').delegate('tr:not(.success)','click',function(){
                     rmAct(); //clear active tr
                     $(this).addClass('tr-active');
                 })
+				
+				$('#rooms > tbody').delegate('tr:not(.success)','dblclick',function(){
+					TM=setInterval(function(){timeLoad()},1000);
+					$('#move-arena').modal({
+						backdrop: 'static',	
+					})
+                    //window.location.replace('http://localhost:85/HTML5-Twitter-Bootstrap/rps/public/login');
+                });
+				
+				$('#move-arena').on('hidden', function () {
+					COUNTER = 0;
+					$("#loading-bar").css('width',COUNTER + '%');
+					$("#num-loading").text(COUNTER);
+			    })
+				
+				function timeLoad(){
+					
+					COUNTER = COUNTER + Math.floor((Math.random()*20)+1);
+					$("#num-loading").text(COUNTER);
+					$("#loading-bar").css('width',COUNTER + '%');
+					if(COUNTER > 100 ) {
+						
+						var range = (COUNTER - 100);
+						COUNTER = COUNTER - range;
+						window.clearInterval(TM);
+						$("#loading-bar").css('width',COUNTER + '%');
+						$("#num-loading").text(COUNTER);
+						$('#move-arena').modal('hide');
+						
+					}
+
+				}
                 
             })
         </script>
