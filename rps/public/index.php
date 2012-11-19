@@ -49,7 +49,6 @@
 	     }
 
         </style>
-        <link href="../css/bootstrap-responsive.css" rel="stylesheet">
             
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -156,26 +155,26 @@
                             </div>
                           </li>
                         </ul>
+                        <button type="button" id="create-room" class="btn btn-primary" data-loading-text="Loading...">Create Room</button>
           				</div>
-                    </div>
+                    </div><!--end span6-->
                 </div>
             </div>
-                
-                
-                <div class="modal hide fade" id="move-arena">
+            
+            	<div class="modal hide fade" id="modal-create-room">
                   <div class="modal-header">
                     
-                    <h3>Loading Page...</h3>
+                    <h3>Create Room</h3>
                   </div>
                   <div class="modal-body">
-                    <div class="progress">
-                      <div id="loading-bar" class="bar" style="width: 0%;"></div>
-                    </div>
+                      <input type="text" placeholder="room title">
                   </div>
                   <div class="modal-footer">
-                    <span>Loading....</span><span id="num-loading">0</span>%
+                        <a href="http://localhost:85/HTML5-Twitter-Bootstrap/rps/public/arena" class="btn btn-primary">Create</a>
                   </div>
                 </div>
+            	<!--end modal-create-room -->
+
             <hr>
                 
             <footer>
@@ -189,51 +188,33 @@
         <script src="../js/bootstrap.min.js"></script>
         <script>
             $(function(){
-                var COUNTER = 0;
-				var TM = null;
+                //giving active unactive css of tr
                 function rmAct(){
                     $("#rooms").find('tbody').find('tr').each(function(){
                         $(this).removeClass('tr-active')
                     });
                 }
                 
+				//giving click function on tr
                 $('#rooms > tbody').delegate('tr:not(.success)','click',function(){
                     rmAct(); //clear active tr
                     $(this).addClass('tr-active');
                 })
 				
 				$('#rooms > tbody').delegate('tr:not(.success)','dblclick',function(){
-					TM=setInterval(function(){timeLoad()},1000);
-					$('#move-arena').modal({
-						backdrop: 'static',	
-					})
-                    //window.location.replace('http://localhost:85/HTML5-Twitter-Bootstrap/rps/public/login');
+                    window.location.replace('http://localhost:85/HTML5-Twitter-Bootstrap/rps/public/arena');
                 });
 				
-				$('#move-arena').on('hidden', function () {
-					COUNTER = 0;
-					$("#loading-bar").css('width',COUNTER + '%');
-					$("#num-loading").text(COUNTER);
-			    })
+				$("#create-room").click(function(){
+					$(this).button('loading');	
+					$('#modal-create-room').modal('show');
+				});
 				
-				function timeLoad(){
-					
-					COUNTER = COUNTER + Math.floor((Math.random()*20)+1);
-					$("#num-loading").text(COUNTER);
-					$("#loading-bar").css('width',COUNTER + '%');
-					if(COUNTER > 100 ) {
-						
-						var range = (COUNTER - 100);
-						COUNTER = COUNTER - range;
-						window.clearInterval(TM);
-						$("#loading-bar").css('width',COUNTER + '%');
-						$("#num-loading").text(COUNTER);
-						$('#move-arena').modal('hide');
-						
-					}
-
-				}
-                
+				//reset button loading
+				$("#modal-create-room").on('hidden',function(){
+					$("#create-room").button('reset');
+				});
+	
             })
         </script>
     </body>
