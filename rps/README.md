@@ -31,7 +31,10 @@ Progress
 ------
 <ol>
 <li> Login Page <img src="http://img43.imageshack.us/img43/2685/screenshot20121114at610.png"/></li> 
-<li> Home Page <img src="http://img7.imageshack.us/img7/3895/screenshot20121114at612.png" /> </li>
+<li> Home Page <img src="http://img687.imageshack.us/img687/1829/homejx.png" /> </li>
+<li> create room <img src="http://img39.imageshack.us/img39/8796/createroom.png" /> </li>
+<li> loading arena page <img src="http://img600.imageshack.us/img600/66/loadingw.png" /> </li>
+<li> arena page <img src="http://img685.imageshack.us/img685/7965/arenazy.png" /> </li>
 </ol>
 
 Todo
